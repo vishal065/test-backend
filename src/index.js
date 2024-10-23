@@ -34,7 +34,21 @@ app.use(
 app.use("/api/v1", IndexRoute);
 
 app.get("/check", (req, res) => {
-  res.send("hello server");
+  const accessCookie = {
+    sameSite: "None",
+    maxAge: 1000 * 60 * 60, // 1 hour
+    httpOnly: true,
+    secure: true,
+  };
+  const accessCookie2 = {
+    sameSite: "Lax",
+    maxAge: 1000 * 60 * 60, // 1 hour
+    httpOnly: true,
+    secure: true,
+  };
+  res
+    .cookie("token", token, accessCookie)
+    .cookie("role", "user", accessCookie2);
 });
 
 dbConnect()

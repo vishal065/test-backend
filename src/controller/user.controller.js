@@ -104,4 +104,5 @@ const loginUser = async (req, res) => {
     token,
   });
 };
+
 export { registeredUser, loginUser };
