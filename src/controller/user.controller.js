@@ -19,6 +19,7 @@ const registeredUser = async (req, res) => {
   if (validateData.success === false) {
     return res.status(400).json({ ...validateData.error.issues });
   }
+  console.log("validateData", validateData.data);
 
   const existUser = await UserModel.findOne({
     $or: [
@@ -26,6 +27,8 @@ const registeredUser = async (req, res) => {
       { phone: validateData.data.phone },
     ],
   });
+  console.log("existUser", existUser);
+
   if (existUser) {
     return res.status(StatusCodes.OK).json({
       message: "User already Exist",
@@ -33,6 +36,7 @@ const registeredUser = async (req, res) => {
   }
 
   const savedUser = await UserModel.create(validateData.data);
+  console.log("savedUser", savedUser);
 
   const data = savedUser.toObject();
   delete data.password;
@@ -42,12 +46,14 @@ const registeredUser = async (req, res) => {
   }
 
   const token = GenerateToken(savedUser._id, savedUser.email);
+  console.log("token", token);
+
   res
     .cookie("token", token, {
       httpOnly: false,
       secure: true,
     })
-    .cookie("role", savedUser.role, {
+    .cookie("role", data.role, {
       httpOnly: false,
       secure: true,
     });
@@ -60,13 +66,18 @@ const registeredUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log("email & pass ", email, " ", password);
 
   const existUser = await UserModel.findOne({ email });
+  console.log("existUser", existUser);
+
   if (!existUser) {
     return res.status(400).json({ message: "User Not Found" });
   }
 
   const checkPassword = await existUser.comparePassword(password);
+  console.log("checkPassword", checkPassword);
+
   if (!checkPassword) {
     return res.status(400).json({ message: "Password does not match" });
   }
@@ -74,6 +85,8 @@ const loginUser = async (req, res) => {
   const token = GenerateToken(existUser._id, email);
   const user = existUser.toObject();
   delete user.password;
+  console.log("token ", token);
+  console.log("user ", user);
 
   res
     .cookie("token", token, {
