@@ -82,14 +82,12 @@ const loginUser = async (req, res) => {
   const user = existUser.toObject();
   delete user.password;
   const accessCookie = {
-    domain: "superlative-kheer-29e175.netlify.app",
     sameSite: "strict",
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
     secure: true,
   };
   const accessCookie2 = {
-    domain: "superlative-kheer-29e175.netlify.app",
     sameSite: "strict",
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
