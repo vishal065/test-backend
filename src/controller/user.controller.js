@@ -82,14 +82,20 @@ const loginUser = async (req, res) => {
   const user = existUser.toObject();
   delete user.password;
   const accessCookie = {
-    domain: "superlative-kheer-29e175.netlify.app",
+    domain: "https://superlative-kheer-29e175.netlify.app",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60, // 1 hour
+    httpOnly: true,
+  };
+  const accessCookie2 = {
+    domain: "https://test-backend-nh9c.onrender.com",
     sameSite: "strict",
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
   };
   res
     .cookie("token", token, accessCookie)
-    .cookie("role", user.role, accessCookie);
+    .cookie("role", "user", accessCookie2);
 
   return res.status(StatusCodes.OK).json({
     message: "Login Succesfull",
