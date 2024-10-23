@@ -88,7 +88,7 @@ const loginUser = async (req, res) => {
     secure: true,
   };
   const accessCookie2 = {
-    sameSite: "lex",
+    sameSite: "lax",
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
     secure: true,
