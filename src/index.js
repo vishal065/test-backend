@@ -22,7 +22,7 @@ app.use("/api/v1", IndexRoute);
 
 dbConnect()
   .then(() =>
-    app.listen(PORT, () => {
+    app.listen(4000, () => {
       console.log("server is running on PORT ", PORT);
     })
   )
