@@ -4,7 +4,9 @@ import dbConnect from "./DB/DBConnect.js";
 import IndexRoute from "./routes/Index.routes.js";
 import cookieParser from "cookie-parser";
 const app = express();
-const PORT = process.env.PORT || 4100;
+const PORT = process.env.PORT || 4100 || 3000;
+console.log("PORT", process.env.PORT);
+console.log("JWT_SECRET", process.env.JWT_SECRET);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(
