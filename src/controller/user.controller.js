@@ -96,7 +96,7 @@ const loginUser = async (req, res) => {
     path: "/",
     domain: "test-backend-nh9c.onrender.com",
   };
-  res.cookie("token", token, accessCookie).cookie("role", "user", accessCookie);
+  res.cookie("token", token, accessCookie).cookie("role", "user", accessCookie2);
 
   return res.status(StatusCodes.OK).json({
     message: "Login Succesfull",
