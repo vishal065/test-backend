@@ -82,13 +82,13 @@ const loginUser = async (req, res) => {
   const user = existUser.toObject();
   delete user.password;
   const accessCookie = {
-    sameSite: "strict",
+    sameSite: "none",
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
     secure: true,
   };
   const accessCookie2 = {
-    sameSite: "strict",
+    sameSite: "lex",
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
     secure: true,
