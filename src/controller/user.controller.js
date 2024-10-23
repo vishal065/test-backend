@@ -82,17 +82,20 @@ const loginUser = async (req, res) => {
   const user = existUser.toObject();
   delete user.password;
   const accessCookie = {
-    sameSite: "none",
+    sameSite: "None",
     maxAge: 1000 * 60 * 60, // 1 hour
-    partition:"",
+    path: "/",
     httpOnly: true,
     secure: true,
+    domain: "test-backend-nh9c.onrender.com",
   };
   const accessCookie2 = {
-    sameSite: "lax",
+    sameSite: "Lax",
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
     secure: true,
+    path: "/",
+    domain: "test-backend-nh9c.onrender.com",
   };
   res
     .cookie("token", token, accessCookie)
