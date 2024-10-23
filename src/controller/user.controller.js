@@ -87,7 +87,7 @@ const loginUser = async (req, res) => {
     path: "/",
     httpOnly: true,
     secure: true,
-    domain: "test-backend-nh9c.onrender.com",
+    // domain: "test-backend-nh9c.onrender.com",
   };
   const accessCookie2 = {
     sameSite: "Lax",
@@ -95,7 +95,7 @@ const loginUser = async (req, res) => {
     httpOnly: true,
     secure: true,
     path: "/",
-    domain: "test-backend-nh9c.onrender.com",
+    // domain: "test-backend-nh9c.onrender.com",
   };
   res
     .cookie("token", token, accessCookie)
