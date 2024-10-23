@@ -20,6 +20,10 @@ app.use(cookieParser);
 
 app.use("/api/v1", IndexRoute);
 
+app.get("/check", (req, res) => {
+  res.send("hello server");
+});
+
 dbConnect()
   .then(() =>
     app.listen(4000, () => {
