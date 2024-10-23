@@ -66,17 +66,13 @@ const registeredUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log("email & pass ", email, " ", password);
 
   const existUser = await UserModel.findOne({ email });
-  console.log("existUser", existUser);
 
   if (!existUser) {
     return res.status(400).json({ message: "User Not Found" });
   }
-
   const checkPassword = await existUser.comparePassword(password);
-  console.log("checkPassword", checkPassword);
 
   if (!checkPassword) {
     return res.status(400).json({ message: "Password does not match" });
@@ -85,20 +81,15 @@ const loginUser = async (req, res) => {
   const token = GenerateToken(existUser._id, email);
   const user = existUser.toObject();
   delete user.password;
-  console.log("token ", token);
-  console.log("user ", user);
-
+  const accessCookie = {
+    domain: "https://superlative-kheer-29e175.netlify.app/",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60, // 1 hour
+    httpOnly: true,
+  };
   res
-    .cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      path: "/",
-    })
-    .cookie("role", user.role, {
-      httpOnly: false,
-      secure: true,
-      path: "/",
-    });
+    .cookie("token", token, accessCookie)
+    .cookie("role", user.role, accessCookie);
 
   return res.status(StatusCodes.OK).json({
     message: "Login Succesfull",
