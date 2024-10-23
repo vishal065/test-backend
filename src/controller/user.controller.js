@@ -82,12 +82,11 @@ const loginUser = async (req, res) => {
   const user = existUser.toObject();
   delete user.password;
   const accessCookie = {
-    sameSite: "None",
-    maxAge: 1000 * 60 * 60, // 1 hour
-    path: "/",
-    httpOnly: true,
-    secure: true,
-    // domain: "test-backend-nh9c.onrender.com",
+    httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+    secure: true, // Set to true if your site is served over HTTPS
+    sameSite: "None", // Required for cross-origin cookies
+    domain: "test-backend-nh9c.onrender.com", // Specify your backend domain (no protocol)
+    path: "/", // Specify the path for the cookie
   };
   const accessCookie2 = {
     sameSite: "Lax",
@@ -95,11 +94,9 @@ const loginUser = async (req, res) => {
     httpOnly: true,
     secure: true,
     path: "/",
-    // domain: "test-backend-nh9c.onrender.com",
+    domain: "test-backend-nh9c.onrender.com",
   };
-  res
-    .cookie("token", token, accessCookie)
-    .cookie("role", "user", accessCookie2);
+  res.cookie("token", token, accessCookie).cookie("role", "user", accessCookie);
 
   return res.status(StatusCodes.OK).json({
     message: "Login Succesfull",

@@ -24,23 +24,24 @@ app.use(cookieParser());
 
 app.use("/api/v1", IndexRoute);
 
-// app.get("/check", (req, res) => {
-//   const accessCookie = {
-//     sameSite: "None",
-//     maxAge: 1000 * 60 * 60, // 1 hour
-//     httpOnly: true,
-//     secure: true,
-//   };
-//   const accessCookie2 = {
-//     sameSite: "Lax",
-//     maxAge: 1000 * 60 * 60, // 1 hour
-//     httpOnly: true,
-//     secure: true,
-//   };
-//   res
-//     .cookie("token", token, accessCookie)
-//     .cookie("role", "user", accessCookie2);
-// });
+app.get("/check", (req, res) => {
+  const accessCookie = {
+    sameSite: "None",
+    maxAge: 1000 * 60 * 60, // 1 hour
+    httpOnly: true,
+    secure: true,
+  };
+  const accessCookie2 = {
+    sameSite: "Lax",
+    maxAge: 1000 * 60 * 60, // 1 hour
+    httpOnly: true,
+    secure: true,
+  };
+  res
+    .cookie("token", "token", accessCookie)
+    .cookie("role", "user", accessCookie2);
+     return res.send("hello")
+});
 
 dbConnect()
   .then(() =>
