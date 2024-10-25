@@ -82,11 +82,12 @@ const loginUser = async (req, res) => {
   const user = existUser.toObject();
   delete user.password;
   const accessCookie = {
-    httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-    secure: true, // Set to true if your site is served over HTTPS
-    sameSite: "None", // Required for cross-origin cookies
+    httpOnly: true,
+    secure: true,
+    maxAge: 1000 * 60 * 60,
+    sameSite: "None",
     // domain: "test-backend-nh9c.onrender.com", // Specify your backend domain (no protocol)
-    path: "/", // Specify the path for the cookie
+    path: "/",
   };
   const accessCookie2 = {
     sameSite: "None",
