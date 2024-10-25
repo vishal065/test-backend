@@ -85,7 +85,7 @@ const loginUser = async (req, res) => {
     httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
     secure: true, // Set to true if your site is served over HTTPS
     sameSite: "None", // Required for cross-origin cookies
-    domain: "test-backend-nh9c.onrender.com", // Specify your backend domain (no protocol)
+    // domain: "test-backend-nh9c.onrender.com", // Specify your backend domain (no protocol)
     path: "/", // Specify the path for the cookie
   };
   const accessCookie2 = {
@@ -94,7 +94,7 @@ const loginUser = async (req, res) => {
     httpOnly: true,
     secure: true,
     path: "/",
-    domain: "test-backend-nh9c.onrender.com",
+    // domain: "test-backend-nh9c.onrender.com",
   };
   res
     .cookie("token", token, accessCookie)
